@@ -46,33 +46,28 @@ text.innerText = `It is ${currentPlayer.name}'s turn`;
 
 function checkWinner(){
   let x = "";
-  for (let i = 0; i < 3; i++){
-    
-    x += gameboardarray[i];
-    
-  }
-  whoWon(x);
-  for (let i = 3; i < 6; i++){
-    
-    x += gameboardarray[i];
-    
-  }
-  whoWon(x);
-  for (let i = 6; i < 9; i++){
-    
-    x += gameboardarray[i];
-    // doesnt work
-  }
+  winCond: [ // The win conditions
+        [0, 1, 2],
+        [0, 3, 6],
+        [0, 4, 8],
+        [1, 4, 7],
+        [2, 4, 6],
+        [2, 5, 8],
+        [3, 4, 5],
+        [6, 7, 8]
+    ]
   whoWon(x);
 }
 
 function whoWon(x){
   if (x === "XXX") {
     console.log("PLAYER ONE WINS")
+    console.log(x)
     stopGame();
   }
   if (x === "OOO") {
     console.log("PLAYER TWO WINS")
+    console.log(x)
     stopGame();
   }
   x = "";
@@ -81,3 +76,5 @@ function whoWon(x){
 function stopGame(){
   squares.innerText = "";
 }
+
+

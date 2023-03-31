@@ -5,6 +5,14 @@
     font-size: 80px;
 }
 
+.nonclick{
+    pointer-events: none;
+}
+
+.gameboard:hover{
+    cursor: pointer;
+}
+
 .square{
     display: flex;
     border: 1px solid black;
