@@ -5,8 +5,8 @@ const restart = document.querySelector(".restart");
 const submit = document.querySelector(".submit");
 const playeroneinput = document.querySelector("#playerone");
 const playertwoinput = document.querySelector(".playertwo");
-const welcome = document.querySelector("h1")
-const labels = document.querySelectorAll(".label")
+const welcome = document.querySelector("h1");
+const labels = document.querySelectorAll(".label");
 
 const gameboard = (() => {
   let gameboardarray = ["", "", "", "", "", "", "", "", ""];
@@ -17,7 +17,6 @@ const gameboard = (() => {
     }
     changePlayer();
     whoWon();
-    
   };
 
   const click = (() => squares.forEach((square) => {
@@ -59,14 +58,14 @@ const gameboard = (() => {
       }
     }
     if (y === 9) {
-      text.innerText = "It's a TIE";
+      text.innerText = "It's a TIE!";
       stopGame();
     }
   };
 
   const stopGame = () => {
-    squares.forEach((s) => {s.classList.add("nonclick")});
-    restart.innerText = "Play Again!"
+    squares.forEach((s) => { s.classList.add("nonclick"); });
+    restart.innerText = "Play Again!";
   };
 
   const changePlayer = () => {
@@ -78,45 +77,33 @@ const gameboard = (() => {
     text.innerText = `It is ${currentPlayer.name}'s turn`;
   };
 
-  const restartGame = (() => {
-    restart.addEventListener("click", () => {
-      gameboardarray = ["", "", "", "", "", "", "", "", ""];
-      updateScreen();
-      currentPlayer = playerOne;
-      squares.forEach((s) => {s.classList.remove("nonclick")});
-      text.innerText = `It is ${currentPlayer.name}'s turn`;
-      restart.innerText = "Restart"
-    });
-  })();
+  const restartGame = () => {
+    gameboardarray = ["", "", "", "", "", "", "", "", ""];
+    updateScreen();
+    currentPlayer = playerOne;
+    squares.forEach((s) => { s.classList.remove("nonclick"); });
+    text.innerText = `It is ${currentPlayer.name}'s turn`;
+    restart.innerText = "Restart";
+  };
+  return { restartGame };
 })();
 
-
-
-const Player = (name, symbol) => {
-    return { name, symbol }
-}
-
-let playerOne = Player("Player One", "X");
-let playerTwo = Player("Player Two", "O");
-
+const Player = (symbol) => ({ symbol });
+let playerOne = Player("X");
+let playerTwo = Player("O");
 let currentPlayer = playerOne;
 
-
-
 submit.addEventListener("click", (e) => {
-  
   if (playeroneinput.value === "" || playertwoinput.value === "") return;
-    
-    playerOne.name = playeroneinput.value;
-    playerTwo.name = playertwoinput.value;
-    playeroneinput.value =""
-    playertwoinput.value =""
-    restart.classList.remove("hidden")
-    game.classList.remove("hidden")
-    welcome.classList.add("hidden")
-    text.innerText = `It is ${currentPlayer.name}'s turn`;
-    e.preventDefault();
-    welcome.classList.add("hidden")
-    labels.forEach((l) => { l.classList.add("hidden")})
-    submit.classList.add("hidden")
+  playerOne.name = playeroneinput.value
+  playerTwo.name = playertwoinput.value
+  restart.classList.remove("hidden");
+  game.classList.remove("hidden");
+  welcome.classList.add("hidden");
+  text.innerText = `It is ${currentPlayer.name}'s turn`;
+  e.preventDefault();
+  labels.forEach((l) => { l.classList.add("hidden"); });
+  submit.classList.add("hidden");
 });
+
+restart.addEventListener("click", gameboard.restartGame);
