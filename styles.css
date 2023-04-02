@@ -89,6 +89,7 @@ button{
     border-radius: 20px;
     align-self: center;
     background-color: #d9effb;
+    border: 2px solid #417ca1;
 }
 
 button:hover{
