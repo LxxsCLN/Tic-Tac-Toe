@@ -6,6 +6,7 @@ const restart = document.querySelector(".restart");
 const submit = document.querySelector(".submit");
 const playeroneinput = document.querySelector(".playerone");
 const playertwoinput = document.querySelector(".playertwo");
+const welcome = document.querySelector("h1")
 
 const gameboard = (() => {
   let gameboardarray = ["", "", "", "", "", "", "", "", ""];
@@ -64,6 +65,7 @@ const gameboard = (() => {
 
   const stopGame = () => {
     game.classList.add("nonclick");
+    restart.innerText = "Play Again!"
   };
 
   const changePlayer = () => {
@@ -86,6 +88,7 @@ const gameboard = (() => {
       game.classList.remove("nonclick");
       text2.innerText = "";
       text.innerText = `It is ${currentPlayer.name}'s turn`;
+      restart.innerText = "Restart"
     });
   })();
 })();
@@ -100,13 +103,19 @@ let playerOne = Player("Player One", "X");
 let playerTwo = Player("Player Two", "O");
 
 let currentPlayer = playerOne;
-text.innerText = `It is ${currentPlayer.name}'s turn`;
+
 
 
 submit.addEventListener("click", (e) => {
-    e.preventDefault();
+  if (playeroneinput.value === "" || playertwoinput.value === "") return;
+    
     playerOne.name = playeroneinput.value;
     playerTwo.name = playertwoinput.value;
     playeroneinput.value =""
     playertwoinput.value =""
+    restart.classList.remove("hidden")
+    game.classList.remove("hidden")
+    welcome.classList.add("hidden")
+    text.innerText = `It is ${currentPlayer.name}'s turn`;
+    e.preventDefault();
 })

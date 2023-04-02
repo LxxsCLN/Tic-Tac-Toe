@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="gameboard">
+    <h1>WELCOME TO TIC-TAC-TOE!</h1>
+    <div class="gameboard hidden">
         <div data-value="0" class="square"></div>
         <div data-value="1" class="square"></div>
         <div data-value="2" class="square"></div>
@@ -21,10 +22,10 @@
     </div>
     <p class="text"></p>
     <p class="text2"></p>
-    <button class="restart">Restart</button>
-    <form action="" id="form" class="form">
-        <label for="playerone">Player One: <input type="text" class="playerone"></label>
-        <label for="playertwo">Player Two: <input type="text" class="playertwo"></label>
+    <button class="restart hidden">Restart</button>
+    <form name="form" id="form" class="form">
+        <label for="playerone">Player One: <input type="text" name="playerone" class="playerone" requiered placeholder="aaa"></label>
+        <label for="playertwo">Player Two: <input type="text" name="playertwo" class="playertwo" requiered></label>
         <button class="submit">Play!</button>
     </form>
     <script src="js.js"></script>
