@@ -1,12 +1,12 @@
 const game = document.querySelector(".gameboard");
 const squares = Array.from(document.querySelectorAll(".square"));
 const text = document.querySelector(".text");
-const text2 = document.querySelector(".text2");
 const restart = document.querySelector(".restart");
 const submit = document.querySelector(".submit");
-const playeroneinput = document.querySelector(".playerone");
+const playeroneinput = document.querySelector("#playerone");
 const playertwoinput = document.querySelector(".playertwo");
 const welcome = document.querySelector("h1")
+const labels = document.querySelectorAll(".label")
 
 const gameboard = (() => {
   let gameboardarray = ["", "", "", "", "", "", "", "", ""];
@@ -15,8 +15,9 @@ const gameboard = (() => {
     for (const i in squares) {
       squares[i].innerText = gameboardarray[i];
     }
-    whoWon();
     changePlayer();
+    whoWon();
+    
   };
 
   const click = (() => squares.forEach((square) => {
@@ -47,7 +48,8 @@ const gameboard = (() => {
         x += gameboardarray[checkWinner[a][b]];
       }
       if (x === "XXX" || x === "OOO") {
-        text2.innerText = `${currentPlayer.name} WINS`;
+        changePlayer();
+        text.innerText = `${currentPlayer.name} WINS!`;
         stopGame();
       }
     }
@@ -56,15 +58,14 @@ const gameboard = (() => {
         y++;
       }
     }
-    console.log(y);
     if (y === 9) {
-      text2.innerText = "It's a TIE";
+      text.innerText = "It's a TIE";
       stopGame();
     }
   };
 
   const stopGame = () => {
-    game.classList.add("nonclick");
+    squares.forEach((s) => {s.classList.add("nonclick")});
     restart.innerText = "Play Again!"
   };
 
@@ -75,9 +76,6 @@ const gameboard = (() => {
       currentPlayer = playerOne;
     }
     text.innerText = `It is ${currentPlayer.name}'s turn`;
-    if (game.classList.contains("nonclick")) {
-      text.innerText = "";
-    }
   };
 
   const restartGame = (() => {
@@ -85,8 +83,7 @@ const gameboard = (() => {
       gameboardarray = ["", "", "", "", "", "", "", "", ""];
       updateScreen();
       currentPlayer = playerOne;
-      game.classList.remove("nonclick");
-      text2.innerText = "";
+      squares.forEach((s) => {s.classList.remove("nonclick")});
       text.innerText = `It is ${currentPlayer.name}'s turn`;
       restart.innerText = "Restart"
     });
@@ -107,6 +104,7 @@ let currentPlayer = playerOne;
 
 
 submit.addEventListener("click", (e) => {
+  
   if (playeroneinput.value === "" || playertwoinput.value === "") return;
     
     playerOne.name = playeroneinput.value;
@@ -118,4 +116,7 @@ submit.addEventListener("click", (e) => {
     welcome.classList.add("hidden")
     text.innerText = `It is ${currentPlayer.name}'s turn`;
     e.preventDefault();
-})
+    welcome.classList.add("hidden")
+    labels.forEach((l) => { l.classList.add("hidden")})
+    submit.classList.add("hidden")
+});
